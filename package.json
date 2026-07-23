@@ -1,0 +1,28 @@
+{
+  "name": "sistema-bar-desktop",
+  "version": "1.0.0",
+  "description": "Sistema desktop offline de caixa para bar com Electron, Node.js e TypeScript.",
+  "main": "dist/app/main/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && electron .",
+    "test": "node --import tsx --test \"tests/**/*.test.ts\"",
+    "test:watch": "node --import tsx --test --watch \"tests/**/*.test.ts\"",
+    "test:e2e": "npm run build && node --import tsx --test tests/e2e.test.ts"
+  },
+  "keywords": [
+    "electron",
+    "caixa",
+    "bar",
+    "offline"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "electron": "^30.5.1",
+    "playwright": "^1.54.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
