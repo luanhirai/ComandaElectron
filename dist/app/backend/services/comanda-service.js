@@ -68,9 +68,6 @@ class ComandaService {
         const precoNaComanda = precoUnitario === undefined ? undefined : this.validarPrecoUnitario(precoUnitario);
         const itemExistente = comanda.itens.find((item) => item.codigo === codigo);
         const quantidadeNaComanda = itemExistente?.quantidade ?? 0;
-        if (produto.estoque < quantidadeNaComanda + quantidade) {
-            throw new errors_js_1.RegraNegocioError("Produto sem estoque suficiente.");
-        }
         if (itemExistente) {
             itemExistente.quantidade += quantidade;
             if (precoNaComanda !== undefined) {

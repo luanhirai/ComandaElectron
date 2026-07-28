@@ -126,6 +126,23 @@ select {
   text-transform: uppercase;
 }
 
+.box-despesas{
+  display:flex;
+  flex-direction:column;
+  gap: 18px;
+  align-items: start;
+  width: 100%;
+}
+
+.despesas-box{
+  display:flex;
+  flex-direction:row;
+  gap: 18px;
+  align-items: center;
+  width: 100%;
+}
+
+
 .view.hidden,
 .hidden {
   display: none;
@@ -163,6 +180,33 @@ select {
 .card h2 {
   font-size: 24px;
 }
+
+
+
+
+.card2 {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  width: 100%;
+}
+
+.card2-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  padding: 18px;
+}
+
+.card2 h2 {
+  font-size: 24px;
+}
+
+
+
 
 .home-grid {
   display: grid;
@@ -429,15 +473,26 @@ select {
   background: #fffaf0;
 }
 
-.summary-box span,
-.cash-card span {
+
+.summary-box2{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 500px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: var(--surface-2);
+}
+
+
+.summary-box2 span {
   color: var(--muted);
   font-size: 13px;
 }
 
-.summary-box strong,
-.cash-card strong {
-  font-size: 22px;
+.summary-box2 strong {
+  font-size: 18px;
 }
 
 .scanner-panel {
@@ -611,6 +666,8 @@ select {
   border-radius: 8px;
   padding: 14px;
   background: var(--surface-2);
+  overflow-y:auto;
+  max-height: 200px;
 }
 
 .split-result {

@@ -75,8 +75,6 @@ class ProdutoService {
         const produto = this.produtos.get(codigo);
         if (!produto)
             throw new errors_js_1.RegraNegocioError("Produto nao encontrado.");
-        if (produto.estoque < quantidade)
-            throw new errors_js_1.RegraNegocioError("Produto sem estoque suficiente.");
         const atualizado = { ...produto, estoque: produto.estoque - quantidade };
         this.produtos.set(codigo, atualizado);
         await this.persistir();

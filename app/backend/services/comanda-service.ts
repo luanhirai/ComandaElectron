@@ -78,9 +78,6 @@ export class ComandaService {
 
     const itemExistente = comanda.itens.find((item) => item.codigo === codigo);
     const quantidadeNaComanda = itemExistente?.quantidade ?? 0;
-    if (produto.estoque < quantidadeNaComanda + quantidade) {
-      throw new RegraNegocioError("Produto sem estoque suficiente.");
-    }
 
     if (itemExistente) {
       itemExistente.quantidade += quantidade;

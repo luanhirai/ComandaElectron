@@ -80,7 +80,6 @@ export class ProdutoService {
   async baixarEstoque(codigo: string, quantidade: number): Promise<Produto> {
     const produto = this.produtos.get(codigo);
     if (!produto) throw new RegraNegocioError("Produto nao encontrado.");
-    if (produto.estoque < quantidade) throw new RegraNegocioError("Produto sem estoque suficiente.");
 
     const atualizado = { ...produto, estoque: produto.estoque - quantidade };
     this.produtos.set(codigo, atualizado);

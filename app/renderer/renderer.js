@@ -232,18 +232,18 @@ function renderVenda() {
   const abertas = getComandasAbertas();
   elements.comandasResumo.innerHTML = abertas.length
     ? abertas
-        .map(
-          (comanda) =>
-            `${comanda.nome} | Total: ${formatter.format(comanda.total)} | Desconto: ${formatter.format(comanda.desconto ?? 0)} | ${getQuantidadeItens(comanda)} itens`
-        )
-        .join("<br />")
+      .map(
+        (comanda) =>
+          `${comanda.nome} | Total: ${formatter.format(comanda.total)} | Desconto: ${formatter.format(comanda.desconto ?? 0)} | ${getQuantidadeItens(comanda)} itens`
+      )
+      .join("<br />")
     : "Nenhuma comanda aberta no momento.";
 
   elements.comandasList.innerHTML = abertas.length
     ? abertas
-        .map((comanda) => {
-          const active = comanda.id === ui.selectedComandaId ? "active" : "";
-          return `
+      .map((comanda) => {
+        const active = comanda.id === ui.selectedComandaId ? "active" : "";
+        return `
             <div class="row-card selectable ${active}" data-action="selecionar-comanda" data-id="${comanda.id}">
               <div class="row-title">
                 <strong>${comanda.nome}</strong>
@@ -254,8 +254,8 @@ function renderVenda() {
               <div class="meta-line">Total: ${formatter.format(comanda.total)}</div>
               <div class="meta-line">${getQuantidadeItens(comanda)} itens</div>
             </div>`;
-        })
-        .join("")
+      })
+      .join("")
     : `<div class="empty">Crie a primeira comanda para iniciar a venda.</div>`;
 
   const comanda = getSelectedComanda();
@@ -365,8 +365,8 @@ function renderCadastro() {
   const produtosFiltrados = filtrarProdutos();
   elements.produtosList.innerHTML = produtosFiltrados.length
     ? produtosFiltrados
-        .map(
-          (produto) => `
+      .map(
+        (produto) => `
             <div class="row-card">
               <div class="row-title">
                 <strong>${produto.nome}</strong>
@@ -378,8 +378,8 @@ function renderCadastro() {
                 <button class="danger" data-action="excluir-produto" data-codigo="${produto.codigo}">Excluir</button>
               </div>
             </div>`
-        )
-        .join("")
+      )
+      .join("")
     : `<div class="empty">${state.produtos.length ? "Nenhum produto encontrado para essa pesquisa." : "Cadastre o primeiro produto para iniciar as vendas."}</div>`;
 }
 
@@ -389,9 +389,9 @@ function renderFechamento() {
   elements.totalDia.textContent = formatter.format(state.totalDia);
   elements.pagamentosList.innerHTML = pagamentosRecebidos.length
     ? pagamentosRecebidos
-        .map((pagamento) => {
-          const itens = pagamento.itensPagos.map((item) => `${item.codigo} x${item.quantidade}`).join(", ");
-          return `
+      .map((pagamento) => {
+        const itens = pagamento.itensPagos.map((item) => `${item.codigo} x${item.quantidade}`).join(", ");
+        return `
             <div class="row-card">
               <div class="row-title">
                 <strong>${state.comandas.find((comanda) => comanda.id === pagamento.comandaId)?.nome ?? `Comanda ${pagamento.comandaId}`}</strong>
@@ -403,22 +403,22 @@ function renderFechamento() {
               <div class="payment-meta">Itens pagos: ${itens}</div>
               <div class="payment-meta">Data: ${pagamento.data.replace("T", " ")}</div>
             </div>`;
-        })
-        .join("")
+      })
+      .join("")
     : `<div class="empty">Nenhum pagamento registrado ainda.</div>`;
 
   elements.vendasList.innerHTML = vendasRecebidas.length
     ? vendasRecebidas
-        .map(
-          (venda) => `
+      .map(
+        (venda) => `
             <div class="row-card">
               <div class="row-title">
                 <strong>${venda.arquivo}</strong>
               </div>
               <pre class="history-meta">${venda.conteudo}</pre>
             </div>`
-        )
-        .join("")
+      )
+      .join("")
     : `<div class="empty">Nenhuma comanda foi fechada ainda.</div>`;
 }
 
@@ -449,14 +449,14 @@ function renderFiados() {
 
   elements.fiadosList.innerHTML = fiadosFiltrados.length
     ? fiadosFiltrados
-        .map((pagamento) => {
-          const itens = pagamento.itensDetalhados.length
-            ? pagamento.itensDetalhados
-                .map((item) => `${item.nome} x${item.quantidade} (${formatter.format(item.precoUnitario * item.quantidade)})`)
-                .join(", ")
-            : pagamento.itensPagos.map((item) => `${item.codigo} x${item.quantidade}`).join(", ");
+      .map((pagamento) => {
+        const itens = pagamento.itensDetalhados.length
+          ? pagamento.itensDetalhados
+            .map((item) => `${item.nome} x${item.quantidade} (${formatter.format(item.precoUnitario * item.quantidade)})`)
+            .join(", ")
+          : pagamento.itensPagos.map((item) => `${item.codigo} x${item.quantidade}`).join(", ");
 
-          return `
+        return `
             <div class="row-card">
               <div class="row-title">
                 <strong>${pagamento.comandaNome}</strong>
@@ -472,8 +472,8 @@ function renderFiados() {
                 <button class="danger" data-action="cancelar-fiado" data-id="${pagamento.comandaId}" data-data="${encodeURIComponent(pagamento.data)}">Cancelar fiado</button>
               </div>
             </div>`;
-        })
-        .join("")
+      })
+      .join("")
     : `<div class="empty">${fiados.length ? "Nenhum devedor encontrado para essa pesquisa." : "Nenhum fiado registrado ainda."}</div>`;
 }
 
@@ -489,28 +489,34 @@ function renderDespesas() {
   );
 
   elements.despesasResumo.innerHTML = `
-    <div class="summary-box">
-      <span>Total de despesas</span>
-      <strong>${formatter.format(total)}</strong>
+  <div class="despesas-box">
+    <div>
+      <div class="summary-box2">
+        <span>Total de despesas</span>
+        <strong>${formatter.format(total)}</strong>
+      </div>
+      <div class="summary-box2">
+        <span>Dinheiro</span>
+        <strong>${formatter.format(totaisPorMetodo.DINHEIRO)}</strong>
+      </div>
     </div>
-    <div class="summary-box">
-      <span>Dinheiro</span>
-      <strong>${formatter.format(totaisPorMetodo.DINHEIRO)}</strong>
-    </div>
-    <div class="summary-box">
-      <span>Cartao</span>
-      <strong>${formatter.format(totaisPorMetodo.CARTAO)}</strong>
-    </div>
-    <div class="summary-box">
-      <span>Pix</span>
-      <strong>${formatter.format(totaisPorMetodo.PIX)}</strong>
-    </div>
+    <div>
+      <div class="summary-box2">
+        <span>Cartao</span>
+        <strong>${formatter.format(totaisPorMetodo.CARTAO)}</strong>
+      </div>
+      <div class="summary-box2">
+        <span>Pix</span>
+        <strong>${formatter.format(totaisPorMetodo.PIX)}</strong>
+      </div>
+    </div>   
+  </div> 
   `;
 
   elements.despesasList.innerHTML = state.despesas.length
     ? state.despesas
-        .map(
-          (despesa) => `
+      .map(
+        (despesa) => `
             <div class="row-card">
               <div class="row-title">
                 <strong>${despesa.descricao}</strong>
@@ -525,8 +531,8 @@ function renderDespesas() {
                 <button class="danger" data-action="excluir-despesa" data-id="${despesa.id}">Excluir</button>
               </div>
             </div>`
-        )
-        .join("")
+      )
+      .join("")
     : `<div class="empty">Nenhuma despesa registrada ainda.</div>`;
 }
 
@@ -572,11 +578,10 @@ function renderRelatorio() {
 
   elements.reportPayments.innerHTML = `
     <div class="report-block-title">Pagamentos do periodo</div>
-    ${
-      relatorio.pagamentos.length
-        ? relatorio.pagamentos
-            .map(
-              (pagamento) => `
+    ${relatorio.pagamentos.length
+      ? relatorio.pagamentos
+        .map(
+          (pagamento) => `
                 <div class="row-card">
                   <div class="row-title">
                     <strong>${pagamento.comandaNome}</strong>
@@ -588,9 +593,9 @@ function renderRelatorio() {
                   <div class="payment-meta">Troco: ${formatter.format(pagamento.troco ?? 0)}</div>
                   <div class="payment-meta">Data: ${pagamento.data.replace("T", " ")}</div>
                 </div>`
-            )
-            .join("")
-        : `<div class="empty">Sem pagamentos no periodo.</div>`
+        )
+        .join("")
+      : `<div class="empty">Sem pagamentos no periodo.</div>`
     }
   `;
 
@@ -598,8 +603,8 @@ function renderRelatorio() {
     ? `
         <div class="report-block-title">Produtos vendidos</div>
         ${relatorio.produtos
-          .map(
-            (produto) => `
+      .map(
+        (produto) => `
               <div class="row-card">
                 <div class="row-title">
                   <strong>${produto.nome}</strong>
@@ -610,8 +615,8 @@ function renderRelatorio() {
                 <div class="product-meta">Total custo: ${formatter.format(produto.totalCusto)}</div>
                 <div class="product-meta">Lucro bruto: ${formatter.format(produto.lucroBruto)}</div>
               </div>`
-          )
-          .join("")}
+      )
+      .join("")}
       `
     : `<div class="report-block-title">Produtos vendidos</div><div class="empty">Nenhum produto vendido no periodo selecionado.</div>`;
 }
@@ -952,10 +957,10 @@ function openPagamentoModal(mode, preferredMethod = "DINHEIRO") {
       <div class="modal-summary">
         <strong>Itens selecionados</strong>
         ${itens
-          .map((item) => {
-            return `<span>${getItemNome(item)} x${item.quantidade}</span>`;
-          })
-          .join("")}
+        .map((item) => {
+          return `<span>${getItemNome(item)} x${item.quantidade}</span>`;
+        })
+        .join("")}
         <strong>Subtotal: ${formatter.format(subtotal)}</strong>
         <span>Desconto: ${formatter.format(descontoAplicado)}</span>
       </div>
@@ -970,14 +975,13 @@ function openPagamentoModal(mode, preferredMethod = "DINHEIRO") {
             <option value="FIADO">Fiado (devedor)</option>
           </select>
         </label>
-        ${
-          mode === "partial"
-            ? `<label id="valorPagoWrap">
+        ${mode === "partial"
+        ? `<label id="valorPagoWrap">
                 <span class="eyebrow">Valor pago agora</span>
                 <input id="modalValorPago" type="number" min="0.01" max="${totalAPagar.toFixed(2)}" step="0.01" value="${totalAPagar.toFixed(2)}" />
               </label>`
-            : ""
-        }
+        : ""
+      }
         <label id="valorRecebidoWrap">
           <span class="eyebrow">Valor recebido</span>
           <input id="modalValorRecebido" type="number" min="${totalAPagar.toFixed(2)}" step="0.01" placeholder="Somente dinheiro" />
@@ -1042,13 +1046,13 @@ function openPagamentoModal(mode, preferredMethod = "DINHEIRO") {
     const response =
       mode === "partial"
         ? await handleAction(
-            () => window.barApi.pagarItens(comanda.id, itens, metodoPagamento, valor, pagoAgora),
-            metodoPagamento === "FIADO" ? "Fiado registrado" : "Pagamento parcial registrado"
-          )
+          () => window.barApi.pagarItens(comanda.id, itens, metodoPagamento, valor, pagoAgora),
+          metodoPagamento === "FIADO" ? "Fiado registrado" : "Pagamento parcial registrado"
+        )
         : await handleAction(
-            () => window.barApi.fecharComanda(comanda.id, metodoPagamento, valor),
-            "Comanda fechada"
-          );
+          () => window.barApi.fecharComanda(comanda.id, metodoPagamento, valor),
+          "Comanda fechada"
+        );
 
     closeModal();
     if (response?.troco) {
